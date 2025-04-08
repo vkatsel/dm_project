@@ -14,13 +14,21 @@ public class Graph(List<Vertex> vertices, List<Edge> edges)
 
     public void RemoveVertex(Vertex vertex)
     {
+        Edges.RemoveAll(edge => edge.VertA == vertex || edge.VertB == vertex);
         Vertices.Remove(vertex);
-        //If connected with edge, also remove edge
     }
 
     public void AddEdge(Edge edge)
     {
-        throw new NotImplementedException();
+        Edges.Add(edge);
+        if (!edge.VertA.AdjacentVertices.Contains(edge.VertB))
+        {
+            edge.VertA.AdjacentVertices.Add(edge.VertB);
+        }
+        if (!edge.VertB.AdjacentVertices.Contains(edge.VertA))
+        {
+            edge.VertB.AdjacentVertices.Add(edge.VertA);
+        }
     }
 
     public void RemoveEdge(Edge edge)
