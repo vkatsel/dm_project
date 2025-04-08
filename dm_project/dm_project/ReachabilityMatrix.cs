@@ -5,10 +5,10 @@ public class ReachabilityMatrix
     public int[,] BFS_Build(Graph graph)
     {
         int[,] reachabilityMatrix = new int[graph.Vertices.Count, graph.Vertices.Count];
-        var vertex  = graph.Vertices;
+        var vertices  = graph.Vertices;
         for (int i = 0; i < graph.Vertices.Count; i++)
         {
-            var currentVertex = vertex[i];
+            var currentVertex = vertices[i];
             for (int j = 1; j < graph.Vertices.Count; j++)
             {
                 var vertexToCheck = graph.Vertices[j];
@@ -30,6 +30,7 @@ public class ReachabilityMatrix
                 }
             }
         }
+        PrintReachabilityMatrix(reachabilityMatrix, graph);
         return reachabilityMatrix;
     }
 
@@ -38,10 +39,17 @@ public class ReachabilityMatrix
         throw new NotImplementedException();
     }
     
-    public void PrintReachabilityMatrix(int[,] reachabilityMatrix)
+    public void PrintReachabilityMatrix(int[,] reachabilityMatrix, Graph graph)
     {
+        var vertices  = graph.Vertices;
+        for (int i = 0; i < graph.Vertices.Count; i++)
+        {
+            Console.Write(vertices[i].Name);
+        }
+        
         for (int i = 0; i < reachabilityMatrix.GetLength(0); i++)
         {
+            Console.Write($"{vertices[i].Name}  ");
             for (int j = 0; j < reachabilityMatrix.GetLength(1); j++)
             {
                 Console.Write($"{reachabilityMatrix[i, j]} ");
@@ -49,6 +57,5 @@ public class ReachabilityMatrix
             Console.WriteLine();
         }
     }
-    //ToDo: complete the print of matrix with the names of vertices, to make visualisation better
     //ToDo: complete build of matrix using DFS;
 }
