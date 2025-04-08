@@ -2,9 +2,9 @@
 
 namespace dm_project;
 
-public static class Bfs
+public static class BFS
 {
-    public static List<Vertex> Breadth_First_Search(Vertex a, Vertex b)
+    public static (List<Vertex>, bool) Breadth_First_Search(Vertex a, Vertex b)
     {
         var queue = new Queue<Vertex>();
         
@@ -21,7 +21,7 @@ public static class Bfs
             var current = queue.Dequeue();
             if (b.Equals(current))
             {
-                return GetPath(a, current, parent);
+                return (GetPath(a, current, parent), true);
             }
                 
             foreach (var adjacentVertex in current.AdjacentVertices)
@@ -36,7 +36,7 @@ public static class Bfs
             }
         }
 
-        return new List<Vertex>();
+        return (new List<Vertex>(), false);
     }
 
     private static List<Vertex> GetPath(Vertex a, Vertex current, Dictionary<Vertex, Vertex> parent)
