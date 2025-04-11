@@ -48,7 +48,7 @@ public static class ReachabilityMatrix
             if (!reachedVertices.Contains(vertices[i]))
             {
                 reachedVertices.Add(vertices[i]);
-                var connectivityComponent = DFS.DFS_Search(graph, vertices[i]);
+                var connectivityComponent = DFS.DFS_Search(vertices[i]); 
                 
                 foreach (var vertex in connectivityComponent)
                 {
@@ -72,6 +72,37 @@ public static class ReachabilityMatrix
                 }
             }
         }
+        PrintReachabilityMatrix(reachabilityMatrix, graph);
+        return reachabilityMatrix;
+    }
+    
+    public static int[,] DFS_Build_AdjMatrix(Graph graph, int[,] adjMatrix)
+    {
+        int vertexCount = graph.Vertices.Count;
+        int[,] reachabilityMatrix = new int[vertexCount, vertexCount];
+        var visitedGlobal = new HashSet<int>();
+
+        for (int i = 0; i < vertexCount; i++)
+        {
+            if (!visitedGlobal.Contains(i))
+            {
+                var connectivityComponent = DFS.GetConnectivityComponentFromMatrix(adjMatrix, i);
+                foreach (var v in connectivityComponent)
+                {
+                    visitedGlobal.Add(v);
+                    foreach (var u in connectivityComponent)
+                    {
+                        reachabilityMatrix[v, u] = 1;
+                    }
+                }
+            }
+        }
+        
+        for (int i = 0; i < vertexCount; i++)
+        {
+            reachabilityMatrix[i, i] = 0;
+        }
+
         PrintReachabilityMatrix(reachabilityMatrix, graph);
         return reachabilityMatrix;
     }
