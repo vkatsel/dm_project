@@ -76,7 +76,7 @@ public static class ReachabilityMatrix
         return reachabilityMatrix;
     }
     
-    public static int[,] BFS_Matrix_Build(Graph graph) //Build via matrix
+    public static int[,] BFS_Build_Matrix(Graph graph) //Build via matrix
     {
         int n = graph.Vertices.Count;
         int[,] matrix = new int[n, n];
@@ -90,7 +90,7 @@ public static class ReachabilityMatrix
                     matrix[i, j] = BFS.BFS_Matrix(adjMatrix, i, j) ? 1 : 0;
             }
         }
-
+        PrintReachabilityMatrix(matrix, graph);
         return matrix;
     }
     
