@@ -75,6 +75,96 @@ public static class ReachabilityMatrix
         PrintReachabilityMatrix(reachabilityMatrix, graph);
         return reachabilityMatrix;
     }
+    
+    public static int[,] BFS_Matrix_Build(Graph graph)
+    {
+        int n = graph.Vertices.Count;
+        int[,] matrix = new int[n, n];
+        int[,] adjMatrix = graph.BuildAdjacencyMatrix();
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                if (i != j)
+                    matrix[i, j] = BFS_Matrix(adjMatrix, i, j) ? 1 : 0;
+            }
+        }
+
+        return matrix;
+    }
+
+    public static int[,] DFS_Matrix_Build(Graph graph)
+    {
+        int n = graph.Vertices.Count;
+        int[,] matrix = new int[n, n];
+        int[,] adjMatrix = graph.BuildAdjacencyMatrix();
+
+        for (int i = 0; i < n; i++)
+        {
+            var visited = DFS_FromNode(adjMatrix, i);
+            for (int j = 0; j < n; j++)
+            {
+                if (i != j && visited[j])
+                    matrix[i, j] = 1;
+            }
+        }
+
+        return matrix;
+    }
+
+    private static bool BFS_Matrix(int[,] matrix, int start, int target)
+    {
+        int n = matrix.GetLength(0);
+        var visited = new bool[n];
+        var queue = new Queue<int>();
+
+        visited[start] = true;
+        queue.Enqueue(start);
+
+        while (queue.Count > 0)
+        {
+            int current = queue.Dequeue();
+            if (current == target)
+                return true;
+
+            for (int i = 0; i < n; i++)
+            {
+                if (matrix[current, i] == 1 && !visited[i])
+                {
+                    visited[i] = true;
+                    queue.Enqueue(i);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private static bool[] DFS_FromNode(int[,] matrix, int start)
+    {
+        int n = matrix.GetLength(0);
+        var visited = new bool[n];
+        var stack = new Stack<int>();
+
+        visited[start] = true;
+        stack.Push(start);
+
+        while (stack.Count > 0)
+        {
+            int current = stack.Pop();
+            for (int i = 0; i < n; i++)
+            {
+                if (matrix[current, i] == 1 && !visited[i])
+                {
+                    visited[i] = true;
+                    stack.Push(i);
+                }
+            }
+        }
+
+        return visited;
+    }
 
     private static void PrintReachabilityMatrix(int[,] reachabilityMatrix, Graph graph)
     {
@@ -96,4 +186,6 @@ public static class ReachabilityMatrix
             Console.WriteLine();
         }
     }
+    
+    
 }
