@@ -10,7 +10,8 @@ public static class DFS
         DFS_Search(graph, start, visited);
         return visited;
     }
-    public static HashSet<Vertex> DFS_Search(Graph graph, Vertex start, HashSet<Vertex> visited)
+
+    private static HashSet<Vertex> DFS_Search(Graph graph, Vertex start, HashSet<Vertex> visited)
     {
         visited.Add(start);
         foreach (var neighbor in start.AdjacentVertices)

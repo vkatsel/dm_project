@@ -41,22 +41,20 @@ public class Graph(List<Vertex> vertices, List<Edge> edges)
             edge.VertB.AdjacentVertices.Remove(edge.VertA);
     }
 
-    public List<List<bool>> BuildAdjacencyMatrix()
+    public int[,] BuildAdjacencyMatrix()
     {
         int n = Vertices.Count;
-        
-        var matrix = new List<List<bool>>();
-        for (int i = 0; i < n; i++)
-            matrix.Add(new List<bool>(new bool[n]));
-        
+        int[,] matrix = new int[n, n];
+
         foreach (var edge in Edges)
         {
             int i = Vertices.IndexOf(edge.VertA);
             int j = Vertices.IndexOf(edge.VertB);
 
-            matrix[i][j] = true;
-            matrix[j][i] = true;
-        }    
+            matrix[i, j] = 1;
+            matrix[j, i] = 1;
+        }
+
         return matrix;
     }
 

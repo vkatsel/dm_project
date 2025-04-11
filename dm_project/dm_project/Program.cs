@@ -24,8 +24,19 @@ class Program
         edges.Add(edgeAC);
         var adjacencyList = graph.BuildAdjacencyLists();
         var adjacencyMatrix = graph.BuildAdjacencyMatrix();
+        for (int i = 0; i < graph.Vertices.Count; i++)
+        {
+            for (int j = 0; j < graph.Vertices.Count; j++)
+            {
+                Console.Write(adjacencyMatrix[i, j]);
+            }
+            Console.WriteLine();
+        }
         ReachabilityMatrix.BFS_Build(graph);
         ReachabilityMatrix.DFS_Build(graph);
+        
+        //ToDo: Do DFS via adjacency matrix
+        //ToDo: Do BFS via adjacency matrix
     }
     
     
