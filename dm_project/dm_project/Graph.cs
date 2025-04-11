@@ -50,13 +50,13 @@ public class Graph(List<Vertex> vertices, List<Edge> edges)
             matrix.Add(new List<bool>(new bool[n]));
         
         foreach (var edge in Edges)
-        
+        {
             int i = Vertices.IndexOf(edge.VertA);
             int j = Vertices.IndexOf(edge.VertB);
 
             matrix[i][j] = true;
             matrix[j][i] = true;
-            
+        }    
         return matrix;
     }
 
