@@ -43,7 +43,21 @@ public class Graph(List<Vertex> vertices, List<Edge> edges)
 
     public List<List<bool>> BuildAdjacencyMatrix()
     {
-        throw new NotImplementedException();
+        int n = Vertices.Count;
+        
+        var matrix = new List<List<bool>>();
+        for (int i = 0; i < n; i++)
+            matrix.Add(new List<bool>(new bool[n]));
+        
+        foreach (var edge in Edges)
+        
+            int i = Vertices.IndexOf(edge.VertA);
+            int j = Vertices.IndexOf(edge.VertB);
+
+            matrix[i][j] = true;
+            matrix[j][i] = true;
+            
+        return matrix;
     }
 
     public Dictionary<Vertex, HashSet<Vertex>> BuildAdjacencyLists()
