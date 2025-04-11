@@ -33,7 +33,12 @@ public class Graph(List<Vertex> vertices, List<Edge> edges)
 
     public void RemoveEdge(Edge edge)
     {
-        throw new NotImplementedException();
+        Edges.Remove(edge);
+        if (edge.VertA.AdjacentVertices.Contains(edge.VertB))
+            edge.VertA.AdjacentVertices.Remove(edge.VertB);
+
+        if (edge.VertB.AdjacentVertices.Contains(edge.VertA))
+            edge.VertB.AdjacentVertices.Remove(edge.VertA);
     }
 
     public List<List<bool>> BuildAdjacencyMatrix()
