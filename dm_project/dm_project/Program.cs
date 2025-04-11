@@ -6,7 +6,26 @@ class Program
 {
     static void Main(string[] args)
     {
+        var vertices = new List<Vertex>();
+        var edges = new List<Edge>();
+        var graph = new Graph(vertices, edges);
         
+        var vertexA = new Vertex("A");
+        var vertexB = new Vertex("B");
+        var vertexC = new Vertex("C");
+        var vertexD = new Vertex("D");
+        var edgeAB = new Edge(vertexA, vertexB);
+        var edgeAC = new Edge(vertexA, vertexC);
+        vertices.Add(vertexA);
+        vertices.Add(vertexB);
+        vertices.Add(vertexC);
+        vertices.Add(vertexD);
+        edges.Add(edgeAB);
+        edges.Add(edgeAC);
+        var adjacencyList = graph.BuildAdjacencyLists();
+        var adjacencyMatrix = graph.BuildAdjacencyMatrix();
+        ReachabilityMatrix.BFS_Build(graph);
+        ReachabilityMatrix.DFS_Build(graph);
     }
     
     

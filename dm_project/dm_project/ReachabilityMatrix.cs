@@ -2,16 +2,16 @@
 
 namespace dm_project;
 
-public class ReachabilityMatrix
+public static class ReachabilityMatrix
 {
-    public int[,] BFS_Build(Graph graph)
+    public static int[,] BFS_Build(Graph graph)
     {
         int[,] reachabilityMatrix = new int[graph.Vertices.Count, graph.Vertices.Count];
         var vertices = graph.Vertices;
         for (int i = 0; i < graph.Vertices.Count; i++)
         {
             var currentVertex = vertices[i];
-            for (int j = 1; j < graph.Vertices.Count; j++)
+            for (int j = 0; j < graph.Vertices.Count; j++)
             {
                 var vertexToCheck = graph.Vertices[j];
                 if (currentVertex.Equals(vertexToCheck))
@@ -37,7 +37,7 @@ public class ReachabilityMatrix
         return reachabilityMatrix;
     }
 
-    public int[,] DFS_Build(Graph graph)
+    public static int[,] DFS_Build(Graph graph)
     {
         var vertices = graph.Vertices;
         var reachedVertices = new HashSet<Vertex>();
@@ -61,17 +61,30 @@ public class ReachabilityMatrix
                 }
             }
         }
+
+        for (int i = 0; i < graph.Vertices.Count; i++)
+        {
+            for (int j = 0; j < graph.Vertices.Count; j++)
+            {
+                if (j==i)
+                {
+                    reachabilityMatrix[i, j] = 0;
+                }
+            }
+        }
         PrintReachabilityMatrix(reachabilityMatrix, graph);
         return reachabilityMatrix;
     }
 
-    public void PrintReachabilityMatrix(int[,] reachabilityMatrix, Graph graph)
+    private static void PrintReachabilityMatrix(int[,] reachabilityMatrix, Graph graph)
     {
         var vertices  = graph.Vertices;
+        Console.Write("   ");
         for (int i = 0; i < graph.Vertices.Count; i++)
         {
-            Console.Write(vertices[i].Name);
+            Console.Write($"{vertices[i].Name} ");
         }
+        Console.WriteLine();
         
         for (int i = 0; i < reachabilityMatrix.GetLength(0); i++)
         {
