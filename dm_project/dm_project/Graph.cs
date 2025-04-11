@@ -48,7 +48,7 @@ public class Graph(List<Vertex> vertices, List<Edge> edges)
         var matrix = new List<List<bool>>();
         for (int i = 0; i < n; i++)
             matrix.Add(new List<bool>(new bool[n]));
-
+        
         foreach (var edge in Edges)
         {
             int i = Vertices.IndexOf(edge.VertA);
@@ -56,8 +56,7 @@ public class Graph(List<Vertex> vertices, List<Edge> edges)
 
             matrix[i][j] = true;
             matrix[j][i] = true;
-        }
-
+        }    
         return matrix;
     }
 
