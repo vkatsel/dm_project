@@ -4,6 +4,7 @@ namespace dm_project;
 
 public static class BFS
 {
+    //Woking with Adj
     public static (List<Vertex>, bool) Breadth_First_Search(Vertex a, Vertex b)
     {
         var queue = new Queue<Vertex>();
@@ -38,7 +39,38 @@ public static class BFS
 
         return (new List<Vertex>(), false);
     }
+    //
+    
+    //Working with Matrix
+    public static bool BFS_Matrix(int[,] matrix, int start, int target)
+    {
+        int n = matrix.GetLength(0);
+        var visited = new bool[n];
+        var queue = new Queue<int>();
 
+        visited[start] = true;
+        queue.Enqueue(start);
+
+        while (queue.Count > 0)
+        {
+            int current = queue.Dequeue();
+            if (current == target)
+                return true;
+
+            for (int i = 0; i < n; i++)
+            {
+                if (matrix[current, i] == 1 && !visited[i])
+                {
+                    visited[i] = true;
+                    queue.Enqueue(i);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    //Not necesarily needed, working with Breadth_First_Search
     private static List<Vertex> GetPath(Vertex a, Vertex current, Dictionary<Vertex, Vertex> parent)
     {
         var path = new List<Vertex>();
@@ -51,4 +83,6 @@ public static class BFS
         path.Reverse();
         return path;
     }
+    
+    
 }

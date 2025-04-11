@@ -4,7 +4,7 @@ namespace dm_project;
 
 public static class ReachabilityMatrix
 {
-    public static int[,] BFS_Build(Graph graph)
+    public static int[,] BFS_Build(Graph graph) //Build by Adj
     {
         int[,] reachabilityMatrix = new int[graph.Vertices.Count, graph.Vertices.Count];
         var vertices = graph.Vertices;
@@ -37,7 +37,7 @@ public static class ReachabilityMatrix
         return reachabilityMatrix;
     }
 
-    public static int[,] DFS_Build(Graph graph)
+    public static int[,] DFS_Build(Graph graph) //Build by adj
     {
         var vertices = graph.Vertices;
         var reachedVertices = new HashSet<Vertex>();
@@ -76,7 +76,25 @@ public static class ReachabilityMatrix
         return reachabilityMatrix;
     }
     
-    public static int[,] DFS_Build_AdjMatrix(Graph graph, int[,] adjMatrix)
+    public static int[,] BFS_Matrix_Build(Graph graph) //Build via matrix
+    {
+        int n = graph.Vertices.Count;
+        int[,] matrix = new int[n, n];
+        int[,] adjMatrix = graph.BuildAdjacencyMatrix();
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                if (i != j)
+                    matrix[i, j] = BFS.BFS_Matrix(adjMatrix, i, j) ? 1 : 0;
+            }
+        }
+
+        return matrix;
+    }
+    
+    public static int[,] DFS_Build_AdjMatrix(Graph graph, int[,] adjMatrix) //Build via matrix
     {
         int vertexCount = graph.Vertices.Count;
         int[,] reachabilityMatrix = new int[vertexCount, vertexCount];
@@ -106,6 +124,8 @@ public static class ReachabilityMatrix
         PrintReachabilityMatrix(reachabilityMatrix, graph);
         return reachabilityMatrix;
     }
+    
+    
 
     private static void PrintReachabilityMatrix(int[,] reachabilityMatrix, Graph graph)
     {

@@ -4,6 +4,7 @@ namespace dm_project;
 
 public static class DFS 
 {
+    //Working with adjacency
     public static HashSet<Vertex> DFS_Search(Vertex start)
     {
         var visited = new HashSet<Vertex>();
@@ -23,7 +24,9 @@ public static class DFS
         }
         return visited;
     }
+    //
     
+    //Working with Matrix
     public static HashSet<int> GetConnectivityComponentFromMatrix(int[,] adjacencyMatrix, int startVertexIndex)
     {
         int n = adjacencyMatrix.GetLength(0);
@@ -44,5 +47,6 @@ public static class DFS
             }
         }
     }
+    //
 
 }
