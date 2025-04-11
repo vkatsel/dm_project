@@ -48,16 +48,15 @@ public class ReachabilityMatrix
             if (!reachedVertices.Contains(vertices[i]))
             {
                 reachedVertices.Add(vertices[i]);
-                var connectivityComponent = new HashSet<Vertex>();//Do DFS Here, which returns a connectivity component for a particular point
-                for (int j = 0; j < graph.Vertices.Count; j++)
+                var connectivityComponent = DFS.DFS_Search(graph, vertices[i]);
+                
+                foreach (var vertex in connectivityComponent)
                 {
-                    if (connectivityComponent.Contains(vertices[j]))
+                    int index = vertices.IndexOf(vertex);
+                    foreach (var otherVertex in connectivityComponent)
                     {
-                        reachabilityMatrix[i, j] = 1;
-                    }
-                    else
-                    {
-                        reachabilityMatrix[i, j] = 0;
+                        int otherIndex = vertices.IndexOf(otherVertex);
+                        reachabilityMatrix[index, otherIndex] = 1;
                     }
                 }
             }

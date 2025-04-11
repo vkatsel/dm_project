@@ -2,55 +2,25 @@
 
 namespace dm_project;
 
-public static class DFS
+public static class DFS 
 {
-    public static (List<Vertex>, bool) Depth_First_Search(Vertex a, Vertex b)
+    public static HashSet<Vertex> DFS_Search(Graph graph, Vertex start)
     {
         var visited = new HashSet<Vertex>();
-        var parent = new Dictionary<Vertex, Vertex>();
-
-        bool found = DFS_Helper(a, b, visited, parent);
-
-        if (!found)
-            return (new List<Vertex>(), false);
-
-        return (GetPath(a, b, parent), true);
+        DFS_Search(graph, start, visited);
+        return visited;
     }
-
-    private static bool DFS_Helper(Vertex current, Vertex target, HashSet<Vertex> visited, Dictionary<Vertex, Vertex> parent)
+    public static HashSet<Vertex> DFS_Search(Graph graph, Vertex start, HashSet<Vertex> visited)
     {
-        visited.Add(current);
-
-        if (current.Equals(target))
-            return true;
-
-        foreach (var neighbor in current.AdjacentVertices)
+        visited.Add(start);
+        foreach (var neighbor in start.AdjacentVertices)
         {
             if (!visited.Contains(neighbor))
             {
-                parent[neighbor] = current;
-
-                if (DFS_Helper(neighbor, target, visited, parent))
-                    return true;
+                DFS_Search(graph, neighbor, visited);
             }
         }
-
-        return false;
+        return visited;
     }
 
-    private static List<Vertex> GetPath(Vertex start, Vertex end, Dictionary<Vertex, Vertex> parent)
-    {
-        var path = new List<Vertex>();
-        var current = end;
-
-        while (!current.Equals(start))
-        {
-            path.Add(current);
-            current = parent[current];
-        }
-
-        path.Add(start);
-        path.Reverse();
-        return path;
-    }
 }
