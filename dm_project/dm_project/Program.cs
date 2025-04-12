@@ -32,9 +32,9 @@ class Program
             }
             Console.WriteLine();
         }
-        ReachabilityMatrix.BFS_Build(graph);
-        ReachabilityMatrix.DFS_Build(graph);
-        
+        ReachabilityMatrix.BFS_Build_Matrix(graph);
+        ReachabilityMatrix.DFS_Build_AdjMatrix(graph, adjacencyMatrix);
+        ExperimentRunner.Run();
         //ToDo: Do DFS via adjacency matrix
         //ToDo: Do BFS via adjacency matrix
     }
